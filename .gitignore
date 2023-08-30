@@ -1,9 +1,9 @@
 # 忽略build文件夹下的所有文件
-/build/*
-!/build/
+build/*
+!/build/.gitkeep
 
 /bin/*
-!/bin/
+!/bin/.gitkeep
 
 # Prerequisites
 *.d
