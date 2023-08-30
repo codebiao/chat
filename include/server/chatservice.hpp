@@ -10,6 +10,7 @@
 #include "usermodel.hpp"
 #include "offlinemessagemodel.hpp"
 #include "friendmodel.hpp"
+#include "groupmodel.hpp"
 
 using namespace std;
 using namespace muduo::net;
@@ -43,6 +44,11 @@ public:
     // 一对一聊天业务
     void oneChat(const TcpConnectionPtr &, json &, Timestamp);
 
+    // 群聊业务
+    void createGroup(const TcpConnectionPtr &conn, json &js, Timestamp time); // 创建群组业务
+    void addGroup(const TcpConnectionPtr &conn, json &js, Timestamp time);    // 加入群组业务
+    void groupChat(const TcpConnectionPtr &conn, json &js, Timestamp time);   // 群组聊天业务
+
 private:
     // 单例模式 构造函数
     ChatService();
@@ -56,12 +62,10 @@ private:
     mutex _connMutex;
 
     // 数据操作类对象
-    UserModel _userModel;
-    // 离线消息表的操作类
-    OfflineMsgModel _offlineMsgModel;
-    // 维护好友信息的操作类
-    FriendModel _friendModel;
-
+    UserModel _userModel;             // 操作User表的类
+    OfflineMsgModel _offlineMsgModel; // 离线消息表的操作类
+    FriendModel _friendModel;         // 维护好友信息的操作类
+    GroupModel _groupModel;           // 群聊操作类
 };
 
 #endif
